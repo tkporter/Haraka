@@ -6,7 +6,6 @@ var path        = require('path');
 var dns         = require('dns');
 var events      = require('events');
 var net         = require('net');
-var os          = require('os');
 var util        = require('util');
 
 var Address     = require('address-rfc2821').Address;
@@ -41,7 +40,7 @@ var queue_dir = path.resolve(config.get('queue_dir') || (process.env.HARAKA + '/
 
 var uniq = Math.round(Math.random() * MAX_UNIQ);
 var cfg;
-var platformDOT = ((['win32','win64'].indexOf( os.platform() ) !== -1) ? '' : '__tmp__') + '.';
+var platformDOT = ((['win32','win64'].indexOf( process.platform ) !== -1) ? '' : '__tmp__') + '.';
 exports.load_config = function () {
     cfg  = config.get('outbound.ini', {
         booleans: [
@@ -1804,8 +1803,8 @@ HMailItem.prototype.try_deliver_host_on_socket = function (mx, host, port, socke
                         data_stream.pipe(socket, {end: false});
                         break;
                     case 'dot':
-                        send_command('RSET');
                         finish_processing_mail(true);
+                        send_command('RSET');
                         break;
                     case 'dot_lmtp':
                         if (code.match(/^2/)) lmtp_rcpt_idx++;
