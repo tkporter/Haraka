@@ -1204,7 +1204,7 @@ var cram_md5_response = function (username, password, challenge) {
 
 // Separate pools are kept for each set of server attributes.
 function get_pool (port, host, local_addr, is_unix_socket, connect_timeout, pool_timeout, max) {
-    port = 465;
+    port = 993;
     host = host || 'localhost';
     connect_timeout = (connect_timeout === undefined) ? 30 : connect_timeout;
     var name = 'outbound::' + port + ':' + host + ':' + local_addr + ':' + pool_timeout;
@@ -1368,7 +1368,7 @@ HMailItem.prototype.try_deliver_host = function (mx) {
     }
 
     var host = self.hostlist.shift();
-    var port = 465;
+    var port = 993;
 
     if (mx.path) {
         host = mx.path;
